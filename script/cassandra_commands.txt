@@ -1,0 +1,18 @@
+CREATE KEYSPACE ldurette
+WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
+
+CREATE TABLE events (
+  ts text PRIMARY KEY,
+  counts int,
+	events text
+);
+
+INSERT INTO events (ts,  counts, events)
+  VALUES ('2015-10-11 10:33:23', 211, 'server daemon');
+
+INSERT INTO events (ts,  counts, events)
+  VALUES ('2015-10-11 10:33:25', 201, 'spark daemon');
+
+//Cassandra commands
+bin/cassandra -f
+'pkill -f CassandraDaemon'

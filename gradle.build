@@ -1,0 +1,59 @@
+apply plugin: 'java'
+apply plugin: 'scala'
+apply plugin: 'maven'
+apply plugin: "os-package"
+apply plugin: 'distribution'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+
+defaultTasks 'clean', 'test', 'jar'
+
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.netflix.nebula:gradle-ospackage-plugin:2.2.6'
+    }
+}
+
+repositories {
+     mavenCentral()
+}
+
+configurations {
+    provided
+    compile.extendsFrom provided
+}
+
+dependencies {
+    provided 'org.apache.flink:flink-java:0.9.1'
+    provided 'org.apache.flink:flink-streaming-core:0.9.1'
+    provided 'org.apache.flink:flink-clients:0.9.1'
+    compile 'org.apache.flink:flink-connector-kafka:0.9.1'
+    provided 'org.apache.spark:spark-streaming_2.10:1.3.1'
+    provided 'org.apache.spark:spark-sql_2.10:1.3.1'
+    provided 'org.apache.spark:spark-hive_2.10:1.3.1'
+    //compile 'org.apache.spark:spark-streaming-kafka_2.10:1.3.1'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.2'
+}
+
+jar {
+//    manifest {
+//        attributes 'Main-Class': 'test.StreamingWordCount'
+//    }
+    dependsOn configurations.runtime
+    from {
+        (configurations.runtime - configurations.provided).collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    } {
+        exclude "META-INF/*.SF"
+        exclude "META-INF/*.DSA"
+        exclude "META-INF/*.RSA"
+    }
+}
