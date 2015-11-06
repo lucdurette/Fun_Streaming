@@ -13,6 +13,8 @@ Set-up variables in bashrc:
 ```bash
 SCALA_HOME=${HOME}/scala/scala-2.x.x
 PATH=$SCALA_HOME/bin:$PATH
+SPARK_HOME=${HOME}/spark/spark-1.5.1
+PATH=$SPARK_HOME/bin:$PATH
 ``` 
 
 ##Example 1
