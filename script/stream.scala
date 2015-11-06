@@ -9,19 +9,16 @@ case class Message(id:String,msg:String){
 
 val ssc = new StreamingContext(sc, Seconds(3))
 
-//val lines = ssc.socketTextStream("localhost", 9999)
+val lines = ssc.socketTextStream("localhost", 9999)
 
-val lines = ssc.socketTextStream("ldurette-orbitz.duncllc.com", 9999)
+//val lines = ssc.socketTextStream("ldurette-orbitz.duncllc.com", 9999)
 
 val raw = lines.flatMap( _.split("\n") )
-
 //raw.print()
 val received = raw.map( _.split('|') ).map( a => Message(a(0), a(1)) )
-
 //received.print()
 
 val window_received = received.window(Seconds(15),Seconds(9))
-
 /*
 println("Dstream dataframe")
 received.foreachRDD { rdd =>
