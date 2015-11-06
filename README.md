@@ -7,9 +7,10 @@ Most of the code can be run using SBT from the console. This readme will detail 
 ##Pre-Requisite
 Install Spark on your machine.
 The code can be downloaded [Spark Download](https://spark.apache.org/downloads.html])
-This code was run with the pre-built distirbution: Spark 1.5.1 and Hadoop 2.6+
+This code was run with the pre-built distribution: Spark 1.5.1 and Hadoop 2.6+
+
 Set-up variables in bashrc:
-```
+```bash
 SCALA_HOME=${HOME}/scala/scala-2.x.x
 PATH=$SCALA_HOME/bin:$PATH
 ``` 
