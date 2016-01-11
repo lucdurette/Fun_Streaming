@@ -19,8 +19,8 @@ PATH=$SPARK_HOME/bin:$PATH
 
 ##Example 1
 ###Use Case
-Use Spark Streaming to listen to a socket server that emits continouly a bunch of random events.
-Do a Group by using a window function to aggregate and print the top 4 results.
+Use Spark Streaming to listen to a socket server that emits continously a bunch of random events.
+Do a "Group by" using a window function to aggregate and print the top 4 results.
 ###Spark Streaming
 Transform a Dstream to a Dataframe and execute the "group by" to find top 4 messages
 ###Execution
@@ -32,8 +32,16 @@ sh script/continous_echoserver.sh
 ```
 
 Start Interactive Spark Streaming
-```Scala
+```Shell
 spark-shell -i script/stream.scala
 ```
+
+###Apache Flink
+I as was not able to make it work with Flink
+The following library import org.apache.flink.streaming.api.scala._ still has the implicit type issue that has been fixed in import org.apache.flink.api.scala._. Type inference works for Flink DataSet class but does not work for Flink DataStream class.
+
+##Produce message to Kafka
+###Use Case
+Let's send some messages to Kafka with a KafkaProducer in an infinite loop.
 
 
